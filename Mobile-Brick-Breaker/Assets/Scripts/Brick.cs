@@ -1,8 +1,11 @@
 using UnityEngine;
+using System;
 
 public class Brick : MonoBehaviour
 {
     [SerializeField] private int health = 1;
+
+    public event Action BrickDestroyed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,6 +36,7 @@ public class Brick : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            BrickDestroyed?.Invoke();
         }
     }
 }
