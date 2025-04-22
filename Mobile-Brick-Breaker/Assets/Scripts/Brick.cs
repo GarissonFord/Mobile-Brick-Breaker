@@ -4,20 +4,11 @@ using System;
 public class Brick : MonoBehaviour
 {
     [SerializeField] private int health = 1;
+    [SerializeField] private float powerUpDropRate;
+
+    [SerializeField] private GameObject powerup;
 
     public event Action BrickDestroyed;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,8 +26,26 @@ public class Brick : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
-            BrickDestroyed?.Invoke();
+            DestroyThisBrick();
         }
+    }
+
+    private void DestroyThisBrick()
+    {
+        float randomNumber = UnityEngine.Random.Range(0.0f, 1.0f);
+
+        if (randomNumber >= powerUpDropRate)
+        {
+            // Debug.Log("Power up drop " + randomNumber);
+            InstantiatePowerUp();
+        }
+
+        Destroy(gameObject);
+        BrickDestroyed?.Invoke();
+    }
+
+    private void InstantiatePowerUp()
+    {
+        Instantiate(powerup, transform.position, transform.rotation);
     }
 }
