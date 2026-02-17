@@ -14,7 +14,8 @@ public class Powerup : MonoBehaviour
 
     private void Awake()
     { 
-        powerUpType = (PowerUpType) Random.Range(0, 2);
+        powerUpType = (PowerUpType) Random.Range(1, 1);
+        Debug.Log("I am a spawning power up, this is what I am: " + powerUpType.ToString());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

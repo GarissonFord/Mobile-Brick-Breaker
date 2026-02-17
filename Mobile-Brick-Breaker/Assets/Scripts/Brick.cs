@@ -10,6 +10,11 @@ public class Brick : MonoBehaviour
 
     public event Action BrickDestroyed;
 
+    private void Start()
+    {
+        UpdateBrickColor();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject objectCollidedWith = collision.gameObject;
@@ -27,6 +32,31 @@ public class Brick : MonoBehaviour
         if (health <= 0)
         {
             DestroyThisBrick();
+        } else
+        {
+            UpdateBrickColor();
+        }
+    }
+
+    private void UpdateBrickColor()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+        switch (health)
+        {
+            case 3:
+                sr.color = Color.gray3;
+                break;
+            case 2:
+                sr.color = Color.gray2;
+                break;
+            case 1:
+                sr.color = Color.red;
+                break;
+            default:
+                Debug.Log("Invalid health value for this brick");
+                break;
+                
         }
     }
 
